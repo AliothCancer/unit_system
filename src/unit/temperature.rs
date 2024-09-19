@@ -1,8 +1,8 @@
-use super::Unit;
+use super::{numbers::Numeric, Unit};
 
 pub trait ToTemperature
 where
-    Self: PartialEq + PartialOrd + Sized,
+    Self: Numeric,
 {
     fn celsius(self) -> Celsius<Self> {
         Celsius(self)
@@ -10,9 +10,14 @@ where
 }
 
 #[derive(Debug, PartialEq, PartialOrd, Clone, Copy)]
-pub struct Celsius<T: PartialEq + PartialOrd>(pub T);
+pub struct Celsius<T: Numeric>(pub T);
 
-impl ToTemperature for f64 {}
+//impl ToTemperature for f64 {}
+impl<T: Numeric> ToTemperature for T {
+    fn celsius(self) -> Celsius<Self> {
+        Celsius(self)
+    }
+}
 
 impl Unit<f64> for Celsius<f64> {
     fn new(value: f64) -> Self {

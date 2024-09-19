@@ -35,40 +35,48 @@ mod tests {
     #[test]
     fn test_plus() {
         let m1 = Meters(5.0);
-        let m2 = Meters(5.0);
+        let m2 = Meters(3.0);
         let result = m1.plus(m2);
-        assert_eq!(Into::<f64>::into(result), 10.0_f64);
-    }
+        assert_eq!(Into::<f64>::into(result), 8.0);
 
-    #[test]
-    fn test_plus_variant() {
         let m1 = Meters(5.0);
-        let result = m1.plus(5.0);
-        assert_eq!(Into::<f64>::into(result), 10.0_f64);
+        let result = m1.plus(3.0);
+        assert_eq!(Into::<f64>::into(result), 8.0);
     }
-
 
     #[test]
     fn test_minus() {
         let m1 = Meters(5.0);
-        let m2 = Meters(5.0);
+        let m2 = Meters(3.0);
         let result = m1.minus(m2);
-        assert_eq!(Into::<f64>::into(result), 0.0);
+        assert_eq!(Into::<f64>::into(result), 2.0);
+
+        let m1 = Meters(5.0);
+        let result = m1.minus(3.0);
+        assert_eq!(Into::<f64>::into(result), 2.0);
     }
 
     #[test]
     fn test_mul() {
         let m1 = Meters(5.0);
-        let m2 = Meters(5.0);
+        let m2 = Meters(3.0);
         let result = m1.mul(m2);
-        assert_eq!(Into::<f64>::into(result), 25.0);
+        assert_eq!(Into::<f64>::into(result), 15.0);
+
+        let m1 = Meters(5.0);
+        let result = m1.mul(3.0);
+        assert_eq!(Into::<f64>::into(result), 15.0);
     }
 
     #[test]
     fn test_div() {
-        let m1 = Meters(5.0);
-        let m2 = Meters(5.0);
+        let m1 = Meters(6.0);
+        let m2 = Meters(3.0);
         let result = m1.div(m2);
-        assert_eq!(Into::<f64>::into(result), 1.0);
+        assert_eq!(Into::<f64>::into(result), 2.0);
+
+        let m1 = Meters(6.0);
+        let result = m1.div(3.0);
+        assert_eq!(Into::<f64>::into(result), 2.0);
     }
 }

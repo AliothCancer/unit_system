@@ -1,5 +1,6 @@
 pub mod unit;
 
+use adim::*;
 use lenght::*;
 use temperature::*;
 use unit::*;
@@ -20,8 +21,11 @@ fn main() {
     let c2 = c1.div(3.0).div(c1);
     let c2 = c2.minus(3.0).minus(c1);
 
+    
     let result = 4.4.meters().mul(5.9).div(std::f64::consts::PI);
-    let result = 5.adim();
+    let in_value = 5.0.celsius().plus(5.6.adim());
+
+    let result = in_value.plus(4).mul(6);
 
     dbg!(result);
 }

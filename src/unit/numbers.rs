@@ -1,5 +1,6 @@
 use std::ops::{Add, Div, Mul, Sub};
 
+
 pub trait Numeric:
     PartialOrd
     + PartialEq
@@ -18,3 +19,4 @@ impl Numeric for i32 {}
 impl Numeric for u32 {}
 impl Numeric for i64 {}
 impl Numeric for u64 {}
+

@@ -13,11 +13,7 @@ where
 pub struct Celsius<T: Numeric>(T);
 
 //impl ToTemperature for f64 {}
-impl<T: Numeric> ToTemperature for T {
-    fn celsius(self) -> Celsius<Self> {
-        Celsius(self)
-    }
-}
+impl<T: Numeric> ToTemperature for T {}
 
 impl Unit<f64> for Celsius<f64> {
     fn new(value: f64) -> Self {

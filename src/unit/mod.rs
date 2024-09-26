@@ -1,7 +1,7 @@
-pub mod lenght;
 pub mod numbers;
+pub mod lenght;
 pub mod temperature;
-
+pub mod adim;
 
 use numbers::Numeric;
 
@@ -42,22 +42,3 @@ pub trait Unit<NumberType: Numeric>: Into<NumberType> {
     }
 }
 
-#[derive(Debug)]
-pub struct Adim<NumberType: Numeric>(NumberType);
-pub trait ToAdim where Self: Numeric{
-    fn adim(self) -> Adim<Self>{
-        Adim(self)
-    } 
-}
-impl<NumberType: Numeric> ToAdim for NumberType{}
-
-impl<NumberType> Unit<NumberType> for Adim<NumberType>
-where NumberType: Numeric + From<Adim<NumberType>>{
-    fn new(value: NumberType) -> Self {
-        Self(value)
-    }
-
-    fn get_value(self) -> NumberType {
-        self.0
-    }
-}

@@ -4,7 +4,7 @@ use lenght::*;
 use temperature::*;
 use unit::*;
 
-
+#[allow(warnings)]
 fn main() {
     // make new meters or celsius f64
     let l1 = 2.0.meters();
@@ -20,7 +20,8 @@ fn main() {
     let c2 = c1.div(3.0).div(c1);
     let c2 = c2.minus(3.0).minus(c1);
 
-    dbg!(vec![l1,l2]);
-    dbg!(vec![c1,c2]);
+    let result = 4.4.meters().mul(5.9).div(std::f64::consts::PI);
+    let result = 5.adim();
 
+    dbg!(result);
 }

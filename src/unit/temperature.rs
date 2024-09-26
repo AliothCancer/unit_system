@@ -9,8 +9,8 @@ where
     }
 }
 
-#[derive(Debug, PartialEq, PartialOrd, Clone, Copy)]
-pub struct Celsius<T: Numeric>(pub T);
+#[derive(Debug, Clone, Copy)]
+pub struct Celsius<T: Numeric>(T);
 
 //impl ToTemperature for f64 {}
 impl<T: Numeric> ToTemperature for T {

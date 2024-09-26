@@ -1,23 +1,18 @@
 pub mod lenght;
-pub mod temperature;
 pub mod numbers;
+pub mod temperature;
 
-use std::ops::{Add, Div, Mul, Sub};
 
-pub trait Unit<
-    RawValue: Add<Output = RawValue>
-        + Mul<Output = RawValue>
-        + Div<Output = RawValue>
-        + Sub<Output = RawValue>,
->: Into<RawValue>
-{
-    fn new(value: RawValue) -> Self;
-    fn get_value(self) -> RawValue;
+use numbers::Numeric;
 
-    fn plus<T>(self, other: T) -> Self
+pub trait Unit<NumberType: Numeric>: Into<NumberType> {
+    fn new(value: NumberType) -> Self;
+    fn get_value(self) -> NumberType;
+
+    fn plus<ConcreteUnitType>(self, other: ConcreteUnitType) -> Self
     where
         Self: Sized,
-        T: Into<RawValue>,
+        ConcreteUnitType: Into<NumberType>,
     {
         Self::new(self.into() + other.into())
     }
@@ -25,7 +20,7 @@ pub trait Unit<
     fn minus<T>(self, other: T) -> Self
     where
         Self: Sized,
-        T: Into<RawValue>,
+        T: Into<NumberType>,
     {
         Self::new(self.into() - other.into())
     }
@@ -33,7 +28,7 @@ pub trait Unit<
     fn mul<T>(self, other: T) -> Self
     where
         Self: Sized,
-        T: Into<RawValue>,
+        T: Into<NumberType>,
     {
         Self::new(self.into() * other.into())
     }
@@ -41,8 +36,28 @@ pub trait Unit<
     fn div<T>(self, other: T) -> Self
     where
         Self: Sized,
-        T: Into<RawValue>,
+        T: Into<NumberType>,
     {
         Self::new(self.into() / other.into())
+    }
+}
+
+#[derive(Debug)]
+pub struct Adim<NumberType: Numeric>(NumberType);
+pub trait ToAdim where Self: Numeric{
+    fn adim(self) -> Adim<Self>{
+        Adim(self)
+    } 
+}
+impl<NumberType: Numeric> ToAdim for NumberType{}
+
+impl<NumberType> Unit<NumberType> for Adim<NumberType>
+where NumberType: Numeric + From<Adim<NumberType>>{
+    fn new(value: NumberType) -> Self {
+        Self(value)
+    }
+
+    fn get_value(self) -> NumberType {
+        self.0
     }
 }

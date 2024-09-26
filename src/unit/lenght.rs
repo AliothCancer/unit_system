@@ -1,18 +1,20 @@
 // lenght.rs
-use super::Unit;
+use super::{numbers::Numeric, Unit};
 
 pub trait ToLength
 where
-    Self: PartialEq + PartialOrd + Sized,
+    Self: Numeric,
 {
     fn meters(self) -> Meters<Self> {
         Meters(self)
     }
 }
+impl<T: Numeric> ToLength for T{}
 
-#[derive(Debug, PartialEq, PartialOrd, Clone, Copy)]
-pub struct Meters<T: PartialEq + PartialOrd>(pub T);
-impl Unit<f64> for Meters<f64>{
+#[derive(Debug, Clone, Copy)]
+pub struct Meters<T: Numeric>(T);
+
+impl Unit<f64> for Meters<f64> {
     fn new(value: f64) -> Self {
         Meters(value)
     }
@@ -20,13 +22,15 @@ impl Unit<f64> for Meters<f64>{
         self.0
     }
 }
-impl Into<f64> for Meters<f64>{
-    fn into(self) -> f64 {
-        self.0
+
+impl From<Meters<f64>> for f64 {
+    fn from(val: Meters<f64>) -> Self {
+        val.0
     }
 }
 
-impl ToLength for f64{}
+
+// TESTING
 
 #[cfg(test)]
 mod tests {
